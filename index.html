@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi TBM K3 - Sistem Professional</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- HALAMAN AUTH (LOGIN & PENDAFTARAN) -->
+    <div id="auth-container" class="auth-wrapper">
+        <div class="auth-card">
+            
+            <!-- Avatar / Upload Foto Profil Interaktif -->
+            <div class="avatar-upload-wrapper" id="trigger-upload" title="Klik untuk upload foto profil">
+                <img id="avatar-preview-img" src="" alt="Avatar" class="hidden">
+                <div id="avatar-placeholder" class="auth-brand-icon">
+                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-solid fa-plus badge-plus"></i>
+                </div>
+                <input type="file" id="reg-photo" accept="image/*" class="hidden">
+            </div>
+
+            <!-- Form Pendaftaran -->
+            <div id="register-container">
+                <h2 id="auth-title">DAFTAR AKUN BARU</h2>
+                <p class="auth-subtitle">Buat akun untuk mengakses Aplikasi TBM K3</p>
+                <div id="notification" class="notif hidden"></div>
+                
+                <form id="register-form">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-id-card"></i> NAMA LENGKAP / DISPLAY NAME</label>
+                        <input type="text" id="reg-name" required placeholder="Contoh: Ahmad K3">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> USERNAME</label>
+                        <input type="text" id="reg-user" required placeholder="Buat Username">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-lock"></i> PASSWORD</label>
+                        <input type="password" id="reg-pass" required placeholder="Buat Password">
+                    </div>
+                    <button type="submit" class="btn-success-custom">DAFTAR SEKARANG</button>
+                    <p class="switch-text">Sudah punya akun? <span id="to-login">Masuk di sini</span></p>
+                </form>
+            </div>
+
+            <!-- Form Login -->
+            <div id="login-container" class="hidden">
+                <div class="avatar-upload-wrapper" style="cursor: default; border: none; background: transparent;">
+                    <img id="login-avatar-img" src="" alt="Avatar" class="hidden" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
+                </div>
+
+                <h2>LOGIN TBM DIGITAL</h2>
+                <p class="auth-subtitle">Sistem Manajemen Keselamatan Kerja Lapangan</p>
+                <div id="notification-login" class="notif hidden"></div>
+                
+                <form id="login-form">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> USERNAME / EMAIL</label>
+                        <input type="text" id="login-user" required placeholder="Masukkan username">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-lock"></i> PASSWORD</label>
+                        <input type="password" id="login-pass" required placeholder="Masukkan password">
+                    </div>
+                    <button type="submit" class="btn-primary-custom">MASUK</button>
+                    <p class="switch-text">Belum punya akun? <span id="to-register">Daftar di sini</span></p>
+                </form>
+            </div>
+
+        </div>
+        <div class="auth-footer-credit">
+            <p>Developed & Designed with ❤️ by <strong>OLAN MAULANA, S.Kom</strong></p>
+            <p style="font-size: 11px; opacity: 0.8; margin-top: 3px;">Sistem Tinjauan Keselamatan Kerja &copy; 2026</p>
+        </div>
+    </div>
+
+   <!-- HALAMAN UTAMA APLIKASI (DASHBOARD) -->
+   <div id="app-container" class="app-wrapper hidden">
+    <header class="navbar">
+        <div class="navbar-top-mobile">
+            <div class="nav-profile mobile-profile" id="profile-btn">
+                <img id="nav-user-photo" src="" alt="Foto" class="nav-avatar hidden">
+                <i class="fa-solid fa-user-circle" id="nav-user-icon"></i> 
+                <span id="display-username">User</span>
+            </div>
+
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+     
+
+        <div class="nav-menu" id="nav-menu">
+            <button class="nav-link active" data-target="section-beranda">Form TBM</button>
+            <button class="nav-link" data-target="section-laporan">Laporan Data</button>
+            <button class="nav-link" data-target="section-kontak">Kontak Kami</button>
+        </div>
+    </header>
+
+        <main class="main-content">
+            <section id="section-beranda" class="content-section active">
+                <div class="banner-tbm">
+                    <h1>Toolbox Meeting (TBM) Harian</h1>
+                    <p>Keselamatan adalah prioritas utama kita bersama di lapangan.</p>
+                </div>
+
+                <div class="card-form">
+                    <div class="form-header-flex">
+                        <h2>Formulir Pengisian TBM</h2>
+                        <button type="button" id="btn-refresh-manual" class="btn-secondary-custom">
+                            <i class="fa-solid fa-rotate"></i> Sesi Baru
+                        </button>
+                    </div>
+                    <form id="tbm-form">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Tanggal</label>
+                                <input type="date" id="tbm-tanggal" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Lokasi Proyek / Lapangan</label>
+                                <input type="text" id="tbm-lokasi" required placeholder="Contoh: Area Jetty / Workshop">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Nama SPV / Safety Officer</label>
+                                <input type="text" id="tbm-spv" required placeholder="Nama Pengawas">
+                            </div>
+                            <div class="form-group">
+                                <label>Shift Kerja</label>
+                                <select id="tbm-shift" required>
+                                    <option value="Shift 1">Shift 1</option>
+                                    <option value="Shift 2">Shift 2</option>
+                                    <option value="Shift 3">Shift 3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Departemen & Materi TBM</label>
+                                <select id="tbm-dept" required>
+                                    <option value="">Pilih Departemen</option>
+                                    <option value="HES">HES (Health, Environment & Safety)</option>
+                                    <option value="YF">YF (Yard Facility)</option>
+                                    <option value="HPE">HPE (Electrical)</option>
+                                    <option value="OHE">OHE (Heavy Equipment Operator)</option>
+                                    <option value="CIVIL">CIVIL (Konstruksi Sipil)</option>
+                                    <option value="HPM">HPM (Mechanical)</option>
+                                    <option value="HPP">HPP (Piping / Pipa)</option>
+                                    <option value="TANK">TANK (Tank Cleaning)</option>
+                                    <option value="HPFW">HPFW (Fitter & Welder)</option>
+                                    <option value="BME">BME (Bekerja Di Ketinggian)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pilih Judul / Topik Pembahasan</label>
+                                <select id="tbm-topic" required>
+                                    <option value="">Pilih Departemen Terlebih Dahulu</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="materi-preview" class="materi-box hidden">
+                            <hr class="line-divider">
+                            <h3>Poin-Poin Pembahasan K3</h3>
+                            <ul id="preview-points"></ul>
+                            <hr class="line-divider">
+                            <h3>Alat Pelindung Diri (APD) Wajib</h3>
+                            <div id="preview-apd" class="badge-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Pekerja Hadir (1 - 1000)</label>
+                            <select id="tbm-total-pekerja" required></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Catatan Tambahan Terkait TBM</label>
+                            <textarea id="tbm-catatan" rows="3" placeholder="Catatan khusus kondisi lapangan..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Upload Dokumentasi Foto (Bisa lebih dari 1)</label>
+                            <input type="file" id="tbm-photos" accept="image/*" multiple style="display: none;">
+                            <button type="button" class="btn-secondary-custom" onclick="document.getElementById('tbm-photos').click()">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Pilih Foto Dokumentasi
+                            </button>
+                            <div id="photo-preview-grid" class="photo-preview-grid"></div>
+                        </div>
+
+                        <button type="submit" class="btn-success"><i class="fa-solid fa-floppy-disk"></i> Simpan & Lihat Laporan</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="section-laporan" class="content-section hidden">
+                <div class="card-report">
+                    <h2>Daftar Laporan TBM Tersimpan</h2>
+                    <div class="table-responsive">
+                        <table id="report-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Lokasi</th>
+                                    <th>SPV / Officer</th>
+                                    <th>Shift</th>
+                                    <th>Dept / Topik</th>
+                                    <th>Pekerja</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-kontak" class="content-section hidden">
+                <div class="card-contact">
+                    <h2>Kontak & Layanan Informasi</h2>
+                    <p class="contact-desc">Silakan hubungi pengembang jika memerlukan bantuan teknis, penyesuaian sistem, atau konsultasi aplikasi TBM K3.</p>
+                    
+                    <div class="contact-info-grid">
+                        <div class="contact-info">
+                            <p><strong>Nama:</strong> OLAN MAULANA, S.Kom</p>
+                            <p><strong>No. Telepon / WA:</strong> 087877611218</p>
+                            <p><strong>Email:</strong> olanm188@gmail.com</p>
+                        </div>
+                        <div class="wa-direct">
+                            <a href="https://wa.me/6287877611218?text=Halo%20Olan%20Maulana,%20saya%20ingin%20berkonsultasi%20terkait%20aplikasi%20TBM." target="_blank" class="btn-whatsapp">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp Langsung
+                            </a>
+                        </div>
+                    </div>
+            
+                    <hr class="line-divider">
+            
+                    <!-- Formulir Kirim Pesan dari Orang Lain -->
+                    <div class="contact-form-container">
+                        <h3>Kirim Pesan / Masukan Sistem</h3>
+                        <form id="contact-message-form">
+                            <div class="form-group">
+                                <label for="visitor-name">Nama Anda:</label>
+                                <input type="text" id="visitor-name" class="form-control" placeholder="Masukkan nama lengkap..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitor-dept">Departemen / Instansi:</label>
+                                <input type="text" id="visitor-dept" class="form-control" placeholder="Contoh: Departemen HES / Kontraktor..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitor-msg">Isi Pesan / Kendala:</label>
+                                <textarea id="visitor-msg" class="form-control" rows="4" placeholder="Tuliskan pesan, saran, atau laporan kendala aplikasi di sini..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit-msg">
+                                <i class="fa-solid fa-paper-plane"></i> Kirim Pesan via WhatsApp ke Pengembang
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        <!-- MODAL EDIT PROFIL -->
+        <div id="profile-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>Edit Profil Pengguna</h3>
+                <form id="update-profile-form">
+                    <div class="form-group" style="text-align: center;">
+                        <img id="modal-current-photo" src="" alt="Foto Profil" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid var(--primary-color);">
+                    </div>
+                    <div class="form-group">
+                        <label>Ganti Foto Profil</label>
+                        <input type="file" id="edit-photo" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Pengguna / Lengkap</label>
+                        <input type="text" id="edit-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password Baru</label>
+                        <input type="password" id="edit-pass" placeholder="Kosongkan jika tidak diubah">
+                    </div>
+                    <button type="submit" class="btn-primary-custom">Simpan Perubahan</button>
+                    <button type="button" id="logout-btn" class="btn-danger" style="margin-top: 10px;">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- MODAL DETAIL / PREVIEW PDF -->
+        <div id="detail-modal" class="modal hidden">
+            <div class="modal-content modal-large">
+                <span class="close-modal-detail">&times;</span>
+                <div id="printable-area">
+                    <div class="pdf-header-center">
+                        <h2>Digital TBM Report</h2>
+                        <p id="pdf-date-loc"></p>
+                    </div>
+                    <div class="pdf-body">
+                        <p><strong>SPV / Safety Officer:</strong> <span id="pdf-spv"></span></p>
+                        <p><strong>Shift:</strong> <span id="pdf-shift"></span></p>
+                        <p><strong>Departemen / Topik:</strong> <span id="pdf-topic"></span></p>
+                        <hr class="line-divider">
+                        <h3>Poin Pembahasan K3</h3>
+                        <ul id="pdf-points"></ul>
+                        <hr class="line-divider">
+                        <h3>Alat Pelindung Diri (APD)</h3>
+                        <p id="pdf-apd"></p>
+                        <hr class="line-divider">
+                        <p><strong>Total Pekerja Hadir:</strong> <span id="pdf-total"></span> Orang</p>
+                        <p><strong>Catatan Tambahan:</strong> <span id="pdf-catatan"></span></p>
+                        <hr class="line-divider">
+                        <h3>Dokumentasi Kegiatan TBM</h3>
+                        <div id="pdf-photos" class="pdf-photo-grid"></div>
+                    </div>
+                </div>
+                <div class="modal-actions" style="margin-top: 20px;">
+                    <button id="download-pdf-btn"><i class="fa-solid fa-file-pdf"></i> Ekstrak PDF</button>
+                    <button id="download-word-btn"><i class="fa-solid fa-file-word"></i> Ekstrak Word</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL LIGHTBOX UNTUK ZOOM FOTO -->
+        <div id="imageModal" class="modal-lightbox" style="display:none;">
+            <span class="close-lightbox">&times;</span>
+            <img id="imgModalContent" alt="Foto Asli">
+        </div>
+
+        <footer class="main-dashboard-footer">
+            <p>Aplikasi TBM K3 Professional System &bull; Dibuat dan Dikembangkan oleh <strong>OLAN MAULANA, S.Kom</strong></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
